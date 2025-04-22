@@ -31,8 +31,10 @@
                  <div class="col-12">
                      <div class="card top-selling overflow-auto effectup">
                          <div class="card-body pb-0">
-                             <div align="right">
-                                 <a class="btn btn-success mt-3 mb-3 float-right pull-right" href="<?= $links_path; ?>&form=add">Create</a>
+                             <div align="right" class="mt-3 mb-3">
+                                 <?php if (!in_array($_SESSION['role_id'], [5])) { ?>
+                                     <a class="btn btn-success float-right pull-right" href="<?= $links_path; ?>&form=add">Create</a>
+                                 <?php } ?>
                              </div>
                              <table class="table table-striped table-bordered datatable mt-3">
                                  <thead>
