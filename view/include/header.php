@@ -63,6 +63,37 @@ function checkMenuRole($roleid, $page)
 
     return $nom;
 }
+function get_modul_session($sess)
+{
+
+    $data['where'] = '';
+    $data['where_drop'] = '';
+    $nom = 1;
+    foreach ($sess as $rols) {
+        if ($nom == 1) {
+            if (in_array($rols['role_id'], [3, 4, 5])) {
+                $data['where'] = "where ";
+            }
+            $and_or = " ";
+        } else {
+            $and_or = " or ";
+        }
+        if (in_array($rols['role_id'], [3])) {
+            $data['where'] .= "  " . $and_or . " (b.majors_id in (select majors_id from majors_detail a where user_id='" . $_SESSION['userid'] . "') ) ";
+            $data['where_drop'] .= " " . $and_or . "  ( a.majors_id in (select majors_id from majors_detail where user_id='" . $_SESSION['userid'] . "') ) ";
+        }
+        if (in_array($rols['role_id'], [4])) {
+            $data['where'] .= " " . $and_or . "  (b.user_id='" . $_SESSION['userid'] . "') ";
+            $data['where_drop'] .= " " . $and_or . " ( a.user_id='" . $_SESSION['userid'] . "' )";
+        }
+        if (in_array($rols['role_id'], [5])) {
+            $data['where'] .= " " . $and_or . " (b.majors_id in (select majors_id from students a where user_id='" . $_SESSION['userid'] . "') ) ";
+            $data['where_drop'] .= " " . $and_or . "  ( a.majors_id in (select majors_id from students where user_id='" . $_SESSION['userid'] . "') ) ";
+        }
+        $nom++;
+    }
+    return $data;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

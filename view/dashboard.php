@@ -57,7 +57,7 @@ if ($_SESSION['role_id'] == '5') {
                                              FROM learning_moduls a 
                                              left join instructors b on a.instructor_id=b.id  
                                              left join users c on b.user_id=c.id  
-                                             where  a.is_active='1' 
+                                            " . get_modul_session($_SESSION['roles'])['where'] . "
                                              order by a.id desc limit 10");
     $num_last10rec = mysqli_num_rows($getdata_last10rec);
     $rows_last10rec = mysqli_fetch_all($getdata_last10rec, MYSQLI_ASSOC);

@@ -1,19 +1,5 @@
  <?php
-    $where = '';
-    $where_drop = '';
 
-    if (in_array($_SESSION['role_id'], [3])) {
-        $where = " where b.majors_id in (select majors_id from majors_detail a where user_id='" . $_SESSION['userid'] . "') ";
-        $where_drop = " and  a.majors_id in (select majors_id from majors_detail where user_id='" . $_SESSION['userid'] . "') ";
-    }
-    if (in_array($_SESSION['role_id'], [4])) {
-        $where = " where b.user_id='" . $_SESSION['userid'] . "'";
-        $where_drop = " and a.user_id='" . $_SESSION['userid'] . "'";
-    }
-    if (in_array($_SESSION['role_id'], [5])) {
-        $where = " where b.majors_id in (select majors_id from students a where user_id='" . $_SESSION['userid'] . "')  ";
-        $where_drop = " and  a.majors_id in (select majors_id from students where user_id='" . $_SESSION['userid'] . "')  ";
-    }
 
 
     $getdata = mysqli_query($conn, "SELECT a.*,c.name as instructor 
@@ -23,14 +9,14 @@
                                          from learning_moduls a 
                                          left join instructors b on a.instructor_id=b.id 
                                          left join users c on b.user_id=c.id   
-                                         " . $where . "
+                                         " . get_modul_session($_SESSION['roles'])['where'] . "
                                          order by a.id desc");
     $numdata = mysqli_num_rows($getdata);
 
     ?>
  <main id="main" class="main">
      <div class="pagetitle">
-         <h1>Managements Modul <?= $_SESSION['userid']; ?></h1>
+         <h1>Managements Modul</h1>
          <nav>
              <ol class="breadcrumb">
                  <li class="breadcrumb-item"><a href="#">Managements Modul</a></li>
@@ -122,7 +108,7 @@
              <?php } else {
 
                     $getinstructor = mysqli_query($conn, "SELECT a.*,b.name username,c.name majorsname from instructors a left join users b on a.user_id=b.id left join majors c on a.majors_id=c.id 
-                                                            where a.is_active='1' " . $where_drop . "");
+                                                            where a.is_active='1' " . get_modul_session($_SESSION['roles'])['where_drop'] . "");
                     $cekinstructor = mysqli_num_rows($getinstructor);
                     $rowinstructor = mysqli_fetch_all($getinstructor, MYSQLI_ASSOC);
                     if (isset($_GET['tid'])) {
