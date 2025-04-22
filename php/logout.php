@@ -1,4 +1,4 @@
     <?php
     session_start();
     session_destroy();
-    header("Location: http://localhost/modul");
+    header("Location: http://localhost/management-modul");

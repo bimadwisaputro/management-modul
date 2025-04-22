@@ -49,6 +49,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 if ($numdp > 0) {
                     foreach ($rowdp as $rowp) {
                         $_SESSION['student_id'] = $rowp['id'];
+                        $_SESSION['majors_id'] = $rowp['majors_id'];
                         $_SESSION['photo'] = $rowp['photo'];
                         $_SESSION['gender'] = $rowp['gender'];
                         $_SESSION['date_of_birth'] = $rowp['date_of_birth'];

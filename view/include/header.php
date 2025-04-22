@@ -134,6 +134,29 @@ function checkMenuRole($roleid, $page)
             cursor: text;
         }
 
+        .circular-head {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            margin: auto;
+        }
+
+        .circular-head img {
+            min-width: 100%;
+            min-height: 100%;
+            width: 40px;
+            height: auto;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
         .circular {
             width: 70px;
             height: 70px;
@@ -213,8 +236,12 @@ function checkMenuRole($roleid, $page)
                 </li>
                 <li class="nav-item dropdown pe-3">
 
+
+
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="<?= $_SESSION['photo']; ?>" alt="Profile" class="rounded-circle">
+                        <div class="circular-head">
+                            <img src="<?= $_SESSION['photo']; ?>" alt="Profile" class="rounded-circle">
+                        </div>
                         <span class="d-none d-md-block dropdown-toggle ps-2"><?= $_SESSION['fullname']; ?></span>
                     </a><!-- End Profile Iamge Icon -->
 

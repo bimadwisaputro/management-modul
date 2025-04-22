@@ -7,9 +7,14 @@
         $where_drop = " and  a.majors_id in (select majors_id from majors_detail where user_id='" . $_SESSION['userid'] . "') ";
     }
     if (in_array($_SESSION['role_id'], [4])) {
-        $where = " where a.instructor_id='" . $_SESSION['instructor_id'] . "'  ";
-        $where_drop = " and a.id='" . $_SESSION['instructor_id'] . "' ";
+        $where = " where b.user_id='" . $_SESSION['userid'] . "'";
+        $where_drop = " and a.user_id='" . $_SESSION['userid'] . "'";
     }
+    if (in_array($_SESSION['role_id'], [5])) {
+        $where = " where b.majors_id in (select majors_id from students a where user_id='" . $_SESSION['userid'] . "')  ";
+        $where_drop = " and  a.majors_id in (select majors_id from students where user_id='" . $_SESSION['userid'] . "')  ";
+    }
+
 
     $getdata = mysqli_query($conn, "SELECT a.*,c.name as instructor 
                                           ,case a.is_active when '1' then 'Active' else 'Not Active' end as is_activelabel 
@@ -25,7 +30,7 @@
     ?>
  <main id="main" class="main">
      <div class="pagetitle">
-         <h1>Managements Modul</h1>
+         <h1>Managements Modul <?= $_SESSION['userid']; ?></h1>
          <nav>
              <ol class="breadcrumb">
                  <li class="breadcrumb-item"><a href="#">Managements Modul</a></li>
@@ -88,8 +93,10 @@
                                                  </td>
                                                  <td><?= $rows['dates']; ?></td>
                                                  <td class="text-center" style="width:20%;">
-                                                     <a href="<?= $links_path; ?>&form=edit&tid=<?= base64_encode($rows['id']); ?>" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
-                                                     <a href="#" id="delete_<?= $rows['id']; ?>" tid="<?= $rows['id']; ?>" tipe="<?= $_GET['page']; ?>" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                                                     <?php if (!in_array($_SESSION['role_id'], [5])) { ?>
+                                                         <a href="<?= $links_path; ?>&form=edit&tid=<?= base64_encode($rows['id']); ?>" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
+                                                         <a href="#" id="delete_<?= $rows['id']; ?>" tid="<?= $rows['id']; ?>" tipe="<?= $_GET['page']; ?>" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                                                     <?php } ?>
 
                                                  </td>
                                              </tr>

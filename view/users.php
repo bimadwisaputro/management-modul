@@ -67,7 +67,7 @@ $numdata = mysqli_num_rows($getdata);
                                                 </td>
                                                 <td class="text-center" style="width:20%;">
                                                     <a href="<?= $links_path; ?>&form=edit&tid=<?= base64_encode($rows['id']); ?>" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
-                                                    <a href="#" id="delete_<?= $rows['id']; ?>" tid="<?= $rows['id']; ?>" tipe="<?= $_GET['page']; ?>" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                                                    <!-- <a href="#" id="delete_<?= $rows['id']; ?>" tid="<?= $rows['id']; ?>" tipe="<?= $_GET['page']; ?>" class="btn btn-danger"><i class="bi bi-trash"></i></a> -->
                                                 </td>
                                             </tr>
                                         <?php } ?>
