@@ -24,7 +24,7 @@ function checkRoleSession($roleid, $page)
         // foreach ($roleid as $rowr) {
         if ($roleid == $i) {
             if (!in_array($page, ${'array_' . $i . ''})) {
-                header('Location: http://localhost/modul/pageerror.php');
+                header('Location: http://localhost/management-modul/pageerror.php');
                 die();
             } else {
                 return ${'array_' . $i . ''};
